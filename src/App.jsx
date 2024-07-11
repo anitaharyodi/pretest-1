@@ -12,7 +12,16 @@ function App() {
     setInputList("");
   };
 
-  console.log(JSON.stringify(todoList, null, 2));
+  const deleteItem = (index) => {
+    const newArray = [...todoList.slice(0, index), ...todoList.slice(index + 1)];
+    setTodoList(newArray);
+  }
+
+  const changeStatus = (index) => {
+    const newArray = [...todoList];
+    setTodoList(newArray);
+  }
+
 
   return (
     <section className="p-8">
@@ -37,15 +46,17 @@ function App() {
           </button>
         </div>
         {todoList.map((item, index) => (
-          <div className="border-1 p-4 shadow-md">
-            <div className="bg-orange-500 p-1 w-32 rounded-md mb-2">
-              <p className="text-white text-center text-sm">To Do</p>
+          <div className="border-1 p-4 shadow-md my-2">
+            <div className="flex justify-end mb-4">
+              <div className="bg-blue-500 p-1 w-32 rounded-md">
+                <p className="text-white text-center text-sm">To Do</p>
+              </div>
             </div>
             <div className="flex justify-between">
               <h3 className="text-black">{item}</h3>
               <div className="flex">
-                <MdDelete color="red" size={18} />
-                <FaCheck color="green" size={18} className="ml-4" />
+                <MdDelete color="red" size={18} onClick={() => deleteItem(index)} className="hover:cursor-pointer" />
+                <FaCheck color="green" size={18} className="ml-4" onClick={() => changeStatus(index)} />
               </div>
             </div>
           </div>
